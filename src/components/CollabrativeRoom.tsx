@@ -5,22 +5,26 @@ import React from 'react'
 import { Editor } from './editor/Editor'
 import Header from './Header'
 import Loader from './Loader'
+import ActiveCollaborators from './ActiveCollaborators';
 
-export const CollabrativeRoom = () => {
+export const CollabrativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
     return (
-        <RoomProvider id="my-room">
+        <RoomProvider id={roomId}>
             <ClientSideSuspense fallback={<Loader />}>
-                <div className='collaborative-room'>
+                <div className="collaborative-room">
                     <Header>
                         <div className='flex w-fit items-center justify-center gap-2'>
                             <p>share</p>
                         </div>
-                        <SignedOut>
-                            <SignInButton />
-                        </SignedOut>
-                        <SignedIn>
-                            <UserButton />
-                        </SignedIn>
+                        <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
+                            <ActiveCollaborators />
+                            <SignedOut>
+                                <SignInButton />
+                            </SignedOut>
+                            <SignedIn>
+                                <UserButton />
+                            </SignedIn>
+                        </div>
                     </Header>
                     <Editor />
                 </div>
